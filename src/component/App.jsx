@@ -1,20 +1,28 @@
 import React from 'react'
-import axios from 'axios';
-import baseUrl from '../config';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './layout/Layout';
 import BookContainer from './book/BookContainer';
+import Login from './user/Login';
+import { SnackbarProvider } from 'notistack';
+import Auth from './auth';
+
 
 const App = () => {
-
-axios(`${baseUrl}/api/v1/books`).then(books => {
-    console.log("books",books)
-
-})
-
     return (
-        <Layout>
-            <BookContainer />
-        </Layout>
+        <SnackbarProvider maxSnack={3}>
+            <Router>
+                <Layout>
+                    <Routes>
+                        <Route path="/login" element={<Login />}>
+                        </Route>
+                        <Route exact path="/" element={<Auth />}>
+                            
+                        
+                        </Route>
+                    </Routes>
+                </Layout>
+            </Router>
+        </SnackbarProvider>
     );
 }
 
